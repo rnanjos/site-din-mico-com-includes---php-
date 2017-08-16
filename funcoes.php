@@ -1,12 +1,17 @@
 <?php
 
-function carrega_pagina(){
-	(isset($_GET['p'])) ? $pagina = $_GET['p'] : $pagina = 'home';
-	if(file_exists('paginas/'.$pagina.'php')):
-		require_once('paginas/'.$pagina.'php');
-	else:
-		require_once('paginas/home.php');
-	endif;
+function carrega_pagina() {
+
+	$url = (isset($_GET['url'])) ? $_GET['url']: 'paginas/home.php';
+	$url = array_filter(explode('/', $url));
+
+	$file = ("paginas/".$url[0].".php");
+
+	if(is_file($file)){
+		include ($file);
+	} else {
+		include 'paginas/home.php';
+	}
 }
 
 
